@@ -1860,6 +1860,10 @@ function install_finished(&$install_state) {
 
   // Installation profiles are always loaded last.
   module_set_weight($profile, 1000);
+  
+  // Sometimes we could have problems with config static cache.
+  // For avoiding fatal error on installation by drush we have to clear static cache.
+  \Drupal::configFactory()->clearStaticCache();
 
   // Build the router once after installing all modules.
   // This would normally happen upon KernelEvents::TERMINATE, but since the
